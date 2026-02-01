@@ -87,3 +87,12 @@ test ("Test 7 - Title click", async({page,}) =>{
   await expect(page).toHaveURL("https://whistleworks.org/");
 
 })
+
+test ("Test 8 - Title click", async({page,}) =>{
+  await page.goto("https://whistleworks.org/");
+
+   // Title click
+  await page.getByRole('link', { name: 'View All Camps' }).click();
+  await expect(page).toHaveURL("https://whistleworks.org/all-camps");
+
+})
