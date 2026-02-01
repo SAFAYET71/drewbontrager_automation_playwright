@@ -64,17 +64,15 @@ test ("Test 4 - All Camps", async({page,}) =>{
 test ("Test 5 - About Us", async({page,}) =>{
   
   await page.goto("https://whistleworks.org/");
-
    // About Us
   await page.locator("a", { hasText: "About Us" }).first().click();
   await expect(page).toHaveURL("https://whistleworks.org/about-us");
 
 })
-
+// this is for test
 test ("Test 6 - Logo click", async({page,}) =>{
   
   await page.goto("https://whistleworks.org/");
-
    // Logo click
   await page.locator("img.shrink-0.w-16.h-12").click();
   await expect(page).toHaveURL("https://whistleworks.org/");
@@ -82,7 +80,6 @@ test ("Test 6 - Logo click", async({page,}) =>{
 })
 
 test ("Test 7 - Title click", async({page,}) =>{
-  
   await page.goto("https://whistleworks.org/");
 
    // Title click
