@@ -88,11 +88,113 @@ test ("Test 7 - Title click", async({page,}) =>{
 
 })
 
-test ("Test 8 - Title click", async({page,}) =>{
+test ("Test 8 - View All Camps - Button", async({page,}) =>{
   await page.goto("https://whistleworks.org/");
 
-   // Title click
+   // View All Camps - Button
   await page.getByRole('link', { name: 'View All Camps' }).click();
   await expect(page).toHaveURL("https://whistleworks.org/all-camps");
 
 })
+
+
+test ("Test 9 - Main Headding", async({page,}) =>{
+  await page.goto("https://whistleworks.org/");
+
+   // Main Headding
+  await expect(page.getByRole('heading', { name: 'Referee/Umpire Camp Management Made Simple' })).toBeVisible();
+  await expect(page).toHaveURL("https://whistleworks.org/");
+
+})
+
+test ("Test 10 - Sub Headding", async({page,}) =>{
+  await page.goto("https://whistleworks.org/");
+
+   // Sub Headding
+  await expect(page.locator("//p[@class='text-base sm:text-lg md:text-xl lg:text-2xl max-w-xs xs:max-w-sm sm:max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto text-gray-100 px-2 sm:px-0']")).toBeVisible();
+  await expect(page).toHaveURL("https://whistleworks.org/");
+
+})
+
+test('Test 11 - WHISTLE WORKS Partners title is visible', async ({ page }) => {
+  await page.goto('https://whistleworks.org/'); // Replace with your URL
+  await expect(page.getByRole('heading', { name: 'WHISTLE WORKS Partners:' })).toBeVisible();
+});
+
+//Powerful features - Heading
+test ("Test 12 - Powerful Features", async({page,}) =>{
+  await page.goto("https://whistleworks.org/");
+  await expect(page.getByRole('heading', { name: 'Powerful Features' })).toBeVisible();
+  await expect(page).toHaveURL("https://whistleworks.org/");
+
+})
+
+//Powerful features - Sub_Heading
+test ("Test 13 - Powerful Features", async({page,}) =>{
+  await page.goto("https://whistleworks.org/");
+  await expect(page.getByRole('heading', { name: 'Everything you need to manage referees, schedules, and evaluations in one modern platform' })).toBeVisible();
+  await expect(page).toHaveURL("https://whistleworks.org/");
+
+})
+
+//Powerful features - Company Features 1
+test ("Test 14 - Card = Real-time evaluations that drive improvement", async({page,}) =>{
+  await page.goto("https://whistleworks.org/");
+  await expect(page.getByRole('img', { name: 'Real-time evaluations that drive improvement' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Real-time evaluations that drive improvement' })).toBeVisible();
+  await expect(page.locator("//p[contains(text(),'Provide referees with detailed, actionable evaluat')]")).toBeVisible();
+
+})
+
+//Powerful features - Company Features 2
+test ("Test 15 - Card = Simple, secure registration & payments", async({page,}) =>{
+  await page.goto("https://whistleworks.org/");
+  await expect(page.getByRole('img', { name: 'Simple, secure registration & payments' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Simple, secure registration & payments' })).toBeVisible();
+  await expect(page.locator("//p[contains(text(),'Accept camp registrations and payments effortlessl')]")).toBeVisible();
+
+})
+
+//Powerful features - Company Features 3
+test ("Test 16 - Card = GPS Integration", async({page,}) =>{
+  await page.goto("https://whistleworks.org/");
+  await expect(page.getByRole('img', { name: 'GPS Integration' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'GPS Integration' })).toBeVisible();
+  await expect(page.getByText('Officials know exactly where to go, every time, with built-in GPS navigation to game locations')).toBeVisible();
+
+})
+
+//Powerful features - Company Features 4
+test ("Test 17 - Card = Built-in communication & notifications", async({page,}) =>{
+  await page.goto("https://whistleworks.org/");
+  await expect(page.getByRole('img', { name: 'Built-in communication & notifications' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Built-in communication & notifications' })).toBeVisible();
+  await expect(page.locator("//p[contains(text(),'Keep staff and officials informed with instant not')]")).toBeVisible();
+
+})
+
+//Powerful features - Company Features 5
+test ("Test 18 - Card = Smart Scheduling", async({page,}) =>{
+  await page.goto("https://whistleworks.org/");
+  await expect(page.getByRole('img', { name: 'Smart Scheduling' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Smart Scheduling' })).toBeVisible();
+  await expect(page.locator("//p[contains(text(),'Assign games manually, by crew, or use our Automat')]")).toBeVisible();
+
+})
+
+//Powerful features - Company Features 6
+test ("Test 19 - Card = Multi-Camp Management", async({page,}) =>{
+  await page.goto("https://whistleworks.org/");
+  await expect(page.getByRole('img', { name: 'Multi-Camp Management' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Multi-Camp Management' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Multi-Camp Management' })).toBeVisible();
+
+})
+
+//Create an Account or Signup page validation
+test ("Test 20 - Create Your Account Button", async({page,}) =>{
+  await page.goto("https://whistleworks.org/");
+  await page.getByRole('link', { name: 'Create Your Account' }).click();
+  await expect(page).toHaveURL("https://whistleworks.org/auth/signup");
+})
+
