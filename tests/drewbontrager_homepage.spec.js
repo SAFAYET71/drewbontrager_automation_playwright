@@ -182,20 +182,20 @@ test ("Test 20 - Create Your Account Button", async({page,}) =>{
 test('Test 21 - Sign Up page - all elements are visible', async ({ page }) => {
   await page.goto('https://whistleworks.org/auth/signup'); // change URL if needed
 
-  // // LEFT SIDE
+  // LEFT SIDE
   await expect(page.getByRole('img', { name: 'Logo' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Professional Referee Camp Management Made Simple' })).toBeVisible();
   await expect(page.locator("//p[@class='text-sm md:text-base text-neutral-600 text-center w-full md:w-5/6 lg:w-3/4']")).toBeVisible();
 
-//   // RIGHT SIDE - HEADINGS
+ // RIGHT SIDE - HEADINGS
   await expect(page.getByRole('heading', { name: 'Create an Account' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Join us to manage your referee camps efficiently' })).toBeVisible();
 
-//   // INPUT FIELDS
+ // INPUT FIELDS
   await expect(page.getByLabel('First Name')).toBeVisible();
   await expect(page.getByRole('textbox', { name: 'First Name' })).toBeVisible();
   await page.getByRole('textbox', { name: 'First Name' }).fill("Safayet");
-// //
+ 
   await expect(page.getByLabel('Last Name')).toBeVisible();
   await expect(page.getByRole('textbox', { name: 'Last Name' })).toBeVisible();
   await page.getByRole('textbox', { name: 'Last Name' }).fill("Hossain");
@@ -259,3 +259,29 @@ test('Test 21 - Sign Up page - all elements are visible', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Sign Up' })).toBeVisible();
   await page.getByRole('button', { name: 'Sign Up' }).click();
 });
+
+
+test("Test 22 - Sign In page", async({page}) =>{
+await page.goto("https://whistleworks.org/")
+await expect(page.getByRole('button', { name: 'Login' })).toBeVisible();
+await page.getByRole('button', { name: 'Login' }).click();
+await expect(page).toHaveURL("https://whistleworks.org/auth/signin")
+await expect(page.getByRole('heading', { name: 'Welcome Back' })).toBeVisible();
+await expect(page.getByRole('heading', { name: 'Sign in to access your dashboard' })).toBeVisible();
+await expect(page.getByLabel('Email')).toBeVisible();
+await expect(page.getByRole('textbox', { name: 'Email' })).toBeVisible();
+await page.getByRole('textbox', { name: 'Email' }).fill("l66j079uvy@yzcalo.com");
+await expect(page.getByLabel('Password')).toBeVisible();
+await expect(page.getByRole('textbox', { name: 'Password' })).toBeVisible();
+await page.getByRole('textbox', { name: 'Password' }).fill("Pa$$w0rd!");
+await page.locator("//button[@type='button']//*[name()='svg']").click();
+await page.getByRole('checkbox').check();
+await expect(page.getByRole('button', { name: 'Sign In' })).toBeVisible();
+await page.getByRole('button', { name: 'Sign In' }).click();
+await expect(page).toHaveURL("https://whistleworks.org/director-dashboard");
+await expect(page.locator('img.w-full.h-full.object-cover.rounded-full')).toBeVisible();
+await page.locator('img.w-full.h-full.object-cover.rounded-full').click();
+await page.getByRole('button', { name: 'Logout' }).click();
+await expect(page).toHaveURL("https://whistleworks.org/");
+
+})
