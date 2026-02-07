@@ -1,5 +1,6 @@
 // @ts-check
 import { test, expect } from "@playwright/test";
+import path from "path";
 
 test("Test 1 - Whistle Works home page loads correctly With all the element", async ({page,}) => {
   // Step 1: Open the website
@@ -175,7 +176,6 @@ test ("Test 20 - Create Your Account Button", async({page,}) =>{
   await expect(page).toHaveURL("https://test.whistleworks.org/auth/signup");
 })
 
-
 //Sign Up page - all elements are visible & taking values
 test('Test 21 - Sign Up page - all elements are visible', async ({ page }) => {
   await page.goto('https://test.whistleworks.org/auth/signup'); // change URL if needed
@@ -290,6 +290,7 @@ await expect(page).toHaveURL("https://test.whistleworks.org/");
 
 })
 
+
 test("Test 23 - Director Dashboard - Creating Camp", async({page}) =>{
   await page.goto("https://test.whistleworks.org/")
   await page.getByRole('button', { name: 'Login' }).click();
@@ -304,16 +305,93 @@ test("Test 23 - Director Dashboard - Creating Camp", async({page}) =>{
   await expect(page.getByRole('button', { name: 'Sign In' })).toBeVisible();
   await page.getByRole('button', { name: 'Sign In' }).click();
   await expect(page).toHaveURL("https://test.whistleworks.org/director-dashboard");
-  await page.getByRole('link', { name: 'Create New Camp' }).click();
-  await expect (page).toHaveURL("https://test.whistleworks.org/director-dashboard/create-new-camp")
+  // await page.getByRole('link', { name: 'Create New Camp' }).click();
+  // await expect (page).toHaveURL("https://test.whistleworks.org/director-dashboard/create-new-camp")
   
-  //create new camp
-  await expect(page.getByRole('heading', { name: 'Create New Camp' })).toBeVisible();
-  await expect(page.getByText('Set up a new referee camp with all the essential details', { exact: true })).toBeVisible();
-  await expect(page.getByLabel('Camp Name')).toBeVisible();
-  await page.getByRole('textbox', { name: 'Camp Name' }).fill("Feb Camp 1");
-  await expect(page.getByText('Camp Logo', { exact: true })).toBeVisible();
-  await page.locator("//label[@class='cursor-pointer w-full h-28 sm:h-32 md:h-36 lg:h-40 flex flex-col sm:flex-row gap-2 sm:gap-3 items-center justify-center border-[0.5px] border-primary rounded-xl sm:rounded-2xl hover:bg-primary/5 transition-colors duration-300 relative']").click();
-  await page.locator('file').setInputFiles('D:/Safayet_/Product Photo/ali-bakhtiari-7ic3yF64FS8-unsplash.jpg')
+  // //Reset Form Button
+  // await page.getByRole('button', { name: 'Reset Form' }).click();
+  
+  // // //Create new camp title
+  // await expect(page.getByRole('heading', { name: 'Create New Camp' })).toBeVisible();
+  // await expect(page.getByText('Set up a new referee camp with all the essential details', { exact: true })).toBeVisible();
+  
+  // // //Camp name Input field  
+  // await expect(page.locator(':text("Camp Name")')).toBeVisible();
+  // await expect(page.getByRole('textbox', { name: 'Camp Name' })).toBeVisible();
+  // await page.getByRole('textbox', { name: 'Camp Name' }).click();
+  // await page.getByRole('textbox', { name: 'Camp Name' }).fill("Feb Camp 1");
+  
+  // //Camp Logo 
+  // await expect(page.getByText('Camp Logo', { exact: true })).toBeVisible();
+  // // await page.locator("//span[@class='text-primary font-semibold text-base sm:text-lg lg:text-xl text-center sm:text-left']").click();
+  // await page.setInputFiles('input[type="file"]', 'D:/Safayet_/SQA/Test image.jpg');
+  
+  // //Location - input field
+  // await expect(page.getByText('Location *', { exact: true })).toBeVisible();
+  // await page.getByRole('textbox', { name: 'e.g., Los Angeles, CA or search gym/stadium...' }).fill("Bangladesh");
+  // await page.keyboard.press('Enter'); 
+
+  // //Timezone - input field
+  // await expect(page.getByText('Timezone', { exact: true })).toBeVisible();
+  // await page.locator("//div[@name='timezone']//span[@class='ant-select-selection-item']").click();
+  // await page.locator("//div[@name='timezone']//input[@role='combobox']").fill('Bangladesh');
+  // await page.getByText('Bangladesh (BST)').click();
+
+  // //Start Date & End Date 
+  // await expect(page.getByLabel('Start Date')).toBeVisible
+  // await page.getByLabel('Start Date').fill('2026-02-06');
+  // await expect(page.getByLabel('End Date')).toBeVisible
+  // await page.getByLabel('End Date').fill('2026-02-10');
+
+  // //Sport Type
+  // await expect(page.getByText('Sport Type', { exact: true })).toBeVisible();
+  // await page.locator("//div[@name='sports_type_id']//span[@class='ant-select-selection-item']").click();
+  // await page.locator("//div[@name='sports_type_id']//input[@role='combobox']").fill("Cricket");
+  // await page.locator(':text-is("Cricket")').click();
+
+  // //Camp Details - text editor field
+  // await expect(page.getByText('Camp Details (Optional)', { exact: true })).toBeVisible();
+  // await page.locator("//div[@class='tiptap ProseMirror prose prose-sm sm:prose lg:prose-lg xl:prose-xl focus:outline-none min-h-[200px] p-4 border border-gray-300 border-t-0 rounded-b-xl bg-white']").click();
+  // await page.keyboard.type('This is a Test Camp Details 1');
+  // await page.keyboard.press('Enter');
+  // await page.keyboard.type('This is a Test Camp Details 2');
+  // await page.keyboard.press('Control+A');
+  // await page.locator("//button[@title='Bold']//*[name()='svg']").click();
+  // await page.locator("//button[@title='Italic']//*[name()='svg']").click();
+  // await page.locator("//button[@title='Heading 2']//*[name()='svg']").click();
+  // await page.locator("//button[@title='Bullet List']").click();
+  // await page.locator("//button[@title='Numbered List']").click();
+
+  // //Price input field
+  // await expect(page.locator('label:has-text("Price")')).toBeVisible();
+  // await page.locator('input[type="number"]').click();
+  // await page.locator('input[type="number"]').fill('100');
+  // await page.keyboard.press('ArrowUp');
+  // await page.keyboard.press('ArrowDown');
+  // await expect(page.locator('p').filter({ hasText: '+$25 (software fee)' })).toBeVisible();
+
+  // //Create Camp Button
+  // await page.getByRole('button', { name: 'Create Camp' }).click();
+  // await expect(page).toHaveURL('https://test.whistleworks.org/director-dashboard')
+
+  //Edit 
+  await page.getByRole('heading', { name: 'Feb Camp 1'}).click()
+  
+  //Status Update
+  await page.locator('span.ant-select-selection-item').click();
+  await page.locator('.ant-select-dropdown').getByText('Active', { exact: true }).click();
+
+  //Edit Camp
+  page.getByRole('button', { name: 'Edit' }).click();
+ 
+  //Camp name edit
+  await page.getByRole('textbox', { name: 'Camp Name' }).click();
+  await page.getByRole('textbox', { name: 'Camp Name' }).fill("Feb Camp 2");
+
+  //Camp Logo edit 
+  // // await page.locator("//span[@class='text-primary font-semibold text-base sm:text-lg lg:text-xl text-center sm:text-left']").click();
+  await page.setInputFiles('input[type="file"]', '"D:/Safayet_/SQA/Edit Test Image.jpg"');
+
+
 
 })
