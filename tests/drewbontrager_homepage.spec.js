@@ -1,6 +1,5 @@
-// @ts-check
 import { test, expect } from "@playwright/test";
-import path from "path";
+
 test("Test 1 - Whistle Works home page loads correctly With all the element", async ({page,}) => {
   // Step 1: Open the website
   await page.goto("https://test.whistleworks.org/");
@@ -279,9 +278,9 @@ test("Test 23 - Director Dashboard - Creating Camp", async({page}) =>{
   await page.locator("//div[@name='timezone']//input[@role='combobox']").fill('Bangladesh');
   await page.getByText('Bangladesh (BST)').click();
   //Start Date & End Date 
-  await expect(page.getByLabel('Start Date')).toBeVisible
+  await expect(page.getByLabel('Start Date')).toBeVisible();
   await page.getByLabel('Start Date').fill('2026-02-06');
-  await expect(page.getByLabel('End Date')).toBeVisible
+  await expect(page.getByLabel('End Date')).toBeVisible();
   await page.getByLabel('End Date').fill('2026-02-10');
   //Sport Type
   await expect(page.getByText('Sport Type', { exact: true })).toBeVisible();
@@ -376,4 +375,54 @@ test("Test 23 - Director Dashboard - Creating Camp", async({page}) =>{
   await page.getByRole('button', { name: 'Yes, delete it!' }).click();
   await expect(page).toHaveURL('https://test.whistleworks.org/director-dashboard');
 })
+test("Test 24 - Director Dashboard - Build Schedule", async({page}) =>{
+  //Login
+  await page.goto("https://test.whistleworks.org/auth/signin");
+  await expect(page).toHaveURL("https://test.whistleworks.org/auth/signin");
+  await page.getByRole('textbox', { name: 'Email' }).fill("director1@example.com");
+  await page.getByRole('textbox', { name: 'Password' }).fill("12345678");
+  await page.getByRole('button', { name: 'Sign In' }).click();
+  await expect(page).toHaveURL("https://test.whistleworks.org/director-dashboard");
+  //Build schedule Button
+  await page.getByRole('link', { name: 'Build Schedule' }).first().click();
+  //Filling All Dates Time
+  const startTime = '09:00';
+  const endTime = '21:00';
+  const rows = await page.locator('input[id$=".start_time"]').count();
+  for (let i = 0; i < rows; i++) {
+  await page.locator(`#time_ranges\\.${i}\\.start_time`).fill(startTime);
+  await page.locator(`#time_ranges\\.${i}\\.end_time`).fill(endTime);
+ }
+ //Game Duration input Field
+ await page.locator("//input[@id='game_duration']").fill("30");   
+ //Referees per Slot input field
+ await page.locator("//input[@id='max_referees_per_slot']").fill("3");
+ //Location & Courts + Add Location Button
+ await page.getByRole('button', { name: '+ Add Location' }).click();
+ //Adding First location & Number o Courts
+ await page.locator("//input[@name='locations.0.location_name']").click();
+ await page.locator("//input[@name='locations.0.location_name']").fill("Barishal Bangladesh");   
+ await page.locator('.pac-item', {hasText: 'BarishalBangladesh'}).click();
+ await page.locator('[id="locations.0.court_count"]').click();
+ await page.locator('[id="locations.0.court_count"]').fill("2");
+ //Adding Second Location & Number o Courts
+ await page.locator("//input[@name='locations.1.location_name']").click();
+ await page.locator("//input[@name='locations.1.location_name']").fill("Barishal Bangladesh");   
+ await page.locator('.pac-item', {hasText: 'BarishalBangladesh'}).click();
+ await page.locator('[id="locations.1.court_count"]').click();
+ await page.locator('[id="locations.1.court_count"]').fill("2");
+ //Deleting the 2nd location field
+ await page.getByRole('button').nth(4).click();
+ //Generate Schedule
+ await page.getByRole('button', { name: 'Generate Schedule' }).click();
+ //Verifing the Success! pop up
+ await expect(page.getByRole('dialog', { name: 'Success!' })).toBeVisible();
+ await expect(page.locator("//div[@role='dialog']")).toBeVisible();
+ await expect(page.locator("//div[@class='swal2-success-ring']")).toBeVisible();
+ await expect(page.locator('.swal2-success-ring')).toBeVisible();
+ await page.getByRole('button', { name: 'OK' }).click();
+ await expect(page).toHaveURL("https://test.whistleworks.org/director-dashboard/court-list/29")
 
+ 
+
+});
